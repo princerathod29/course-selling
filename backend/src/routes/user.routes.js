@@ -1,6 +1,6 @@
 import express from "express";
 import { protectRoute } from "../middleware/user.middleware.js";
-// import { upload } from "../middleware/multer.js";
+//  import { upload } from "../middleware/multer.js";
 import { signup, login, logout, getUser } from "../controllers/user.controller.js";
 
 const router = express.Router();

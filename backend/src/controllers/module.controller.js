@@ -1,6 +1,6 @@
 import { Course } from "../models/course.model";
 import { Modules } from "../models/module.models";
-import { Comments } from "../models/comment.model";
+import { Comments } from "../models/comment.model.js";
 
 export const createModule = async (req, res) => {
   try {
@@ -53,4 +53,28 @@ export const getSingleCourseModule = async (req,res) =>{
     }catch(error){
         console.log(`Error in form single Get course module, ${error}`)
     }
+}
+export const  getComment = async (req, res) =>{
+  try{
+    const moduleId = req.params.id;
+
+    if(!moduleId){
+      return res.status(401).json({
+        message:"please provide module id"
+      })
+    }
+      
+      const moduleComment = await Modules.findById(moduleId).populate({
+        path:"comments",
+        populate:{
+          path:"userId",
+          select:"fullName email"
+        },
+        options:{sort:{createdAt:-1}}
+      })
+      return res.status(201).json(moduleComment.Comments)
+
+  }catch(error){
+    console.log(error, "From get comment")
+  }
 }
