@@ -5,6 +5,8 @@ import { connectDB } from './config/db.js';
 import { ENV } from './config/env.js';
 import  router from './routes/user.routes.js';
 import courseRoute from './routes/course.routes.js';
+import moduleRoute from './routes/module.route.js';
+
 
 const app = express();
 connectDB();
@@ -16,6 +18,7 @@ app.use(cookieParser());
 // Routes
 app.use('/api/v1/users', router);
 app.use('/api/v1/course', courseRoute)
+app.use('api/v1/Module', moduleRoute)
 
 app.get('/', (req, res) => {
   res.send('Hello World!');

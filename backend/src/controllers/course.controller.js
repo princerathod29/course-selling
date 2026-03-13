@@ -3,6 +3,7 @@ import { ENV } from "../config/env.js";
 import { Course } from "../models/course.model.js"; 
 import {GoogleGenerativeAI} from '@google/generative-ai'
 import { User } from "../models/user.model.js";
+import { Modules } from "../models/module.model.js";
 const genAI = new GoogleGenerativeAI(ENV.GEMINI_API_KEY)
 const model = genAI.getGenerativeModel({model:'gemini-3-flash-preview'})
 
@@ -118,22 +119,23 @@ export const getCourse = async(req, res)=>{
     }
 }
 
-export const getSingleCourse = async(req,res) =>{
-    try{
+export const getSingleCourse=async(req,res)=>{
+    try {
         const courseId = req.params.id;
 
         const course = await Course.findById(courseId).populate("modules")
-        if(!course){
-            return res.status(401).json({message:"Course not found"})
-        }
-        return res.status(201).json(course)
 
-    }catch(error){
-        console.log("error from singlecourse", error);
-        return res.status(500).json({
-            message:"single course error"
-        })
+
+        if(!course){
+            return res.status(401).json({
+                message:"Course not found"
+            })
+        }
+
+
+        return res.status(201).json(course)
+    } catch (error) {
+        console.log(error ," from get single course")
     }
 }
-
 

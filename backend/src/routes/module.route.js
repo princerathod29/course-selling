@@ -1,5 +1,5 @@
 import express from "express";
-import { adminRoute, protectRoute } from "../middleware/auth.middleware.js";
+import { adminRoute, protectRoute } from "../middleware/user.middleware.js";
 import { createModule, getComment, getSingleCourseModule } from "../controllers/module.controller.js";
 import { videoUpload } from "../middleware/videoUpload.js";
 
