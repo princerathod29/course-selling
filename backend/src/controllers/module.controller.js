@@ -1,6 +1,6 @@
 import { Course } from "../models/course.model.js";
 import { Modules } from "../models/module.model.js";
-import { Comments } from "../models/comment.model.js";
+import { Comment } from "../models/comment.model.js";
 
 export const createModule = async (req, res) => {
   try {
@@ -18,13 +18,12 @@ export const createModule = async (req, res) => {
     const videoUrl = req.file.path;
     const publicId = req.file.filename;
 
-    const module = new Modules.create({
+    const module = await Modules.create({
       courseId,
       title,
       video: videoUrl,
       videoPublicUrl: publicId,
     });
-    module.save();
 
     await Course.findByIdAndUpdate(courseId, {
       $push: { modules: module._id },
@@ -72,9 +71,9 @@ export const  getComment = async (req, res) =>{
         },
         options:{sort:{createdAt:-1}}
       })
-      return res.status(201).json(moduleComment.Comments)
+      return res.status(201).json(moduleComment.comments)
 
   }catch(error){
-    console.log(error, "From get comment")
+    console.log(error, "From get comments ")
   }
 }

@@ -13,11 +13,11 @@ export const moduleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  quiz: {
-    type: String,
-    required: true,
-  },
-  Comments: [
+  // quiz: {
+  //   type: String,
+  //   required: true,
+  // },
+  comments: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Comment",

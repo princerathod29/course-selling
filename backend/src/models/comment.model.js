@@ -11,11 +11,11 @@ const commentSchema = new mongoose.Schema({
         ref:"Modules"
     },
 
-    comment:{
+    comments:{
         type:String,
         required:true
     }
 },{timestamps:true})
 
 
-export const Comments = mongoose.model("Comments", commentSchema)
+export const Comment = mongoose.model("Comment", commentSchema)
