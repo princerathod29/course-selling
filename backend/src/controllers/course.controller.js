@@ -138,4 +138,47 @@ export const getSingleCourse=async(req,res)=>{
         console.log(error ," from get single course")
     }
 }
+export const getPurchasedCourse = async(req,res)=>{
+    try {
+        const courseId = req.params.id;
 
+        if(!courseId){
+            return res.status(401).json({
+                message:"course not found"
+            })
+        }
+
+        const purchasedOrder = await Course.findById(courseId).populate("modules")
+
+
+        if(!purchasedOrder){
+            return res.status(401).json({
+                message:"Course not found"
+            })
+        }
+
+
+        return res.status(201).json(purchasedOrder)
+    } catch (error) {
+        console.log(error, "from getPurchased course")
+    }
+}
+
+
+export const getAllPurchasedCourse = async(req,res)=>{
+    try {
+        const userId = req.user._id
+
+        const user = await User.findById(userId).populate("purchasedCourse")
+
+        if(!user){
+            return res.status(401).json({
+                message:"User not found"
+            })
+        }
+
+        return res.status(201).json(user)
+    } catch (error) {
+        console.log(error)
+    }
+}

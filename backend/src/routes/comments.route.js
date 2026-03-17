@@ -1,7 +1,9 @@
-// import express from "express";
-// import { createComment } from "../controllers/comment.controller";
-// const commentRoute = express.Router()
+import express from 'express'
+import { protectRoute } from '../middleware/user.middleware.js'
+import { createComment } from '../controllers/comment.controller.js'
 
-// commentRoute.post('/commentModule/:id', createComment)
+const commentRoute = express.Router()
 
-// export default commentRoute;
+commentRoute.post('/createComment/:id', protectRoute, createComment)
+
+export default commentRoute

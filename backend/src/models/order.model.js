@@ -1,22 +1,27 @@
-// import mongoose from "mongoose"
+import mongoose from "mongoose";
 
-// export const orderSchema = new mongoose.Schema({
-//     userId:{
-//         type:mongoose.Schema.Types.ObjectId,
-//         ref:"USer"
-//     },
-//     courseId:{
-//         type:mongoose.Schema.Types.ObjectId,
-//         ref:"Course"
-//     },
-//     totalAmount:{
-//         type:Number,
-//         required:true
-//     },
-//     stripeSessionId:{
-//         type:String,
-//         unique:true
-//     }
-// },{timestamps:true})
+const orderSchema  = new mongoose.Schema({
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+        required:true
+    },
+    course:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Course"
 
-// export const Order = mongoose.model("Order", orderSchema)
+    },
+
+    totalAmount:{
+        type:Number,
+        required:true
+    },
+
+    stripeSessionId:{
+        type:String,
+        unique:true
+    }
+},{timestamps:true})
+
+
+export const Order = mongoose.model("Order", orderSchema)

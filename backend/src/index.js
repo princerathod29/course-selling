@@ -7,7 +7,8 @@ import  router from './routes/user.routes.js';
 import courseRoute from './routes/course.routes.js';
 import moduleRoute from './routes/module.route.js';
 import quizRoute from './routes/quiz.route.js';
-
+import commentRoute from './routes/comments.route.js';
+import paymentRoute from './routes/payment.routes.js';
 
 const app = express();
 connectDB();
@@ -21,7 +22,8 @@ app.use('/api/v1/users', router)
 app.use('/api/v1/course', courseRoute)
 app.use('/api/v1/module', moduleRoute)
 app.use('/api/v1/quiz', quizRoute)
-
+app.use('/api/v1/comment', commentRoute)
+app.use('/api/v1/payment',paymentRoute)
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });

@@ -53,27 +53,35 @@ export const getSingleCourseModule = async (req,res) =>{
         console.log(`Error in form single Get course module, ${error}`)
     }
 }
-export const  getComment = async (req, res) =>{
-  try{
+export const getComment = async (req, res) => {
+  try {
     const moduleId = req.params.id;
 
-    if(!moduleId){
-      return res.status(401).json({
-        message:"please provide module id"
-      })
+    if (!moduleId) {
+      return res.status(400).json({
+        message: "Please provide module id"
+      });
     }
-      
-      const moduleComment = await Modules.findById(moduleId).populate({
-        path:"comments",
-        populate:{
-          path:"userId",
-          select:"fullName email"
-        },
-        options:{sort:{createdAt:-1}}
-      })
-      return res.status(201).json(moduleComment.comments)
 
-  }catch(error){
-    console.log(error, "From get comments ")
+    const moduleComment = await Modules.findById(moduleId).populate({
+      path: "comments",
+      populate: {
+        path: "userId",
+        select: "fullName email"
+      },
+      options: { sort: { createdAt: -1 } }
+    });
+
+    
+    if (!moduleComment) {
+      return res.status(404).json({
+        message: "Module not found"
+      });
+    }
+
+    return res.status(200).json(moduleComment.comments); // 200 for GET request
+    
+  } catch (error) {
+    console.log(error, "From get comments");
   }
-}
+};

@@ -11,7 +11,7 @@ const commentSchema = new mongoose.Schema({
         ref:"Modules"
     },
 
-    comments:{
+    comment:{
         type:String,
         required:true
     }
